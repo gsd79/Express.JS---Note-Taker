@@ -181,3 +181,14 @@ if (window.location.pathname === '/notes') {
 }
 
 getAndRenderNotes();
+
+
+module.exports = {
+  renderActiveNote,
+  handleNoteSave,
+  handleNoteDelete,
+  handleNewNoteView,
+  handleRenderSaveBtn,
+  renderNoteList,
+  getAndRenderNotes
+};

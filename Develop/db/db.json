@@ -1,9 +1,8 @@
-
-
-
-[
-    {
-        "title":"Test Title",
-        "text":"Test text"
-    }
+{
+    "notes":[
+         {
+        "title":"Monday Note",
+        "text":"This happened today"
+        }   
 ]
+}
