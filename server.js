@@ -17,20 +17,20 @@ app.use(express.static('public'));
 function findById(id, notesArray) {
     const result = notesArray.filter(note => note.id === id)[0];
     return result;
-  }
+}
 
 app.get('/api/notes', (req, res) => {
-     res.json(notes);
+    res.json(notes);
 });
 
 app.get('/api/notes/:id', (req, res) => {
     const result = findById(req.params.id, notes);
-      res.json(result);
-  });
+    res.json(result);
+});
 
 app.post('/api/notes', (req, res) => {
-    req.body.id = notes.length.toString();  
-    const note = createNewNote (req.body, notes);
+    req.body.id = notes.length.toString();
+    const note = createNewNote(req.body, notes);
     res.json(note);
 });
 
@@ -41,21 +41,22 @@ function createNewNote(body, notesArray) {
     fs.writeFileSync(
         path.join(__dirname, './data/notes.json'),
         JSON.stringify({ notes: notesArray }, null, 2)
-      );
-      return note;
-   
+    );
+    return note;
+
 }
+
 
 
 
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
-  });
-  
+});
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
-  });
-  
+});
+
 
 
 app.listen(PORT, () => {
