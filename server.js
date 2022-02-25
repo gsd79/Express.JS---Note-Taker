@@ -1,64 +1,24 @@
-const fs = require('fs');
-const path = require('path');
-
+// dependancy
 const express = require('express');
-const { notes } = require('./data/notes');
 
-
+// variables
 const PORT = process.env.PORT || 3001;
 const app = express();
+const apiRoutes = require('./public/routes/apiRoutes');
+const htmlRoutes = require('./public/routes/htmlRoutes');
 
 
+// middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
-
-function findById(id, notesArray) {
-    const result = notesArray.filter(note => note.id === id)[0];
-    return result;
-}
-
-app.get('/api/notes', (req, res) => {
-    res.json(notes);
-});
-
-app.get('/api/notes/:id', (req, res) => {
-    const result = findById(req.params.id, notes);
-    res.json(result);
-});
-
-app.post('/api/notes', (req, res) => {
-    req.body.id = notes.length.toString();
-    const note = createNewNote(req.body, notes);
-    res.json(note);
-});
+// Use routes
+app.use('/api/notes', apiRoutes);
+app.use('/', htmlRoutes);
 
 
-function createNewNote(body, notesArray) {
-    const note = body;
-    notesArray.push(note);
-    fs.writeFileSync(
-        path.join(__dirname, './data/notes.json'),
-        JSON.stringify({ notes: notesArray }, null, 2)
-    );
-    return note;
-
-}
-
-
-
-
-app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/notes.html'));
-});
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-});
-
-
-
+// listen for port call 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 });
