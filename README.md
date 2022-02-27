@@ -15,7 +15,7 @@
   * [Contact](#contact-information) 
     
   ## Installation Guidelines
-  Fork or clone repo. Use 'node server' in the command line. 
+  Fork or clone repo. Use 'node server' in the command line. Must run application using http://localhost/3001 or Heroku.
 
   ## Usage Guidelines
   Everyday use. 
